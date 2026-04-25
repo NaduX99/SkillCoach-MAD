@@ -69,7 +69,7 @@ class SkillCoachRApp extends ConsumerWidget {
             Text(
               'Time to Rest!',
               style: GoogleFonts.poppins(
-                fontSize: 22,
+                fontSize: 21,
                 fontWeight: FontWeight.bold,
                 color: const Color(0xFF1E293B),
               ),
@@ -79,7 +79,7 @@ class SkillCoachRApp extends ConsumerWidget {
               'You\'ve been working hard for 30 minutes. Take a quick 5-minute break to recharge.',
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
-                fontSize: 14,
+                fontSize: 15,
                 color: const Color(0xFF64748B),
                 height: 1.5,
               ),
@@ -100,7 +100,7 @@ class SkillCoachRApp extends ConsumerWidget {
                   elevation: 0,
                 ),
                 child: Text(
-                  'I\'m Recharged!',
+                  'I\'m Recharged !',
                   style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
