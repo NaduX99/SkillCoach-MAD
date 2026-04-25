@@ -29,7 +29,7 @@ class SkillCoachRApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(appRouterProvider);
 
-    // Global listener for rest reminders - Optimized to only trigger when the flag actually changes
+ 
     ref.listen(sessionProvider.select((s) => s.shouldShowRestAlert), (previous, next) {
       if (next) {
         final ctx = goRouter.routerDelegate.navigatorKey.currentContext;
