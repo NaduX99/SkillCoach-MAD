@@ -15,8 +15,8 @@ class RatingSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderThemeData(
-        activeTrackColor: const Color(0xFF1E3A8A), // Dark blue
-        inactiveTrackColor: const Color(0xFFF1F5F9), // Light grey
+        activeTrackColor: const Color(0xFF1E3A8A), 
+        inactiveTrackColor: const Color(0xFFF1F5F9), 
         trackHeight: 12.0,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10.0),
         thumbColor: Colors.white,
@@ -25,7 +25,6 @@ class RatingSlider extends StatelessWidget {
         inactiveTickMarkColor: Colors.transparent,
       ),
       child: Container(
-        // Adding a slight shadow to the container helps give the thumb that floating/bordered look
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
