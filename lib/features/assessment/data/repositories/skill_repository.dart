@@ -15,7 +15,7 @@ abstract class SkillRepository {
 class FakeSkillRepository implements SkillRepository {
   @override
   Future<List<SkillModel>> getSkillsToAssess(String? careerGoal) async {
-    // Simulated network delay
+    
     await Future.delayed(const Duration(milliseconds: 800));
     
     List<SkillModel> skills = [];
@@ -97,9 +97,9 @@ class FakeSkillRepository implements SkillRepository {
 
   @override
   Future<void> submitAssessment(List<SkillModel> assessedSkills) async {
-    // Simulated network delay
+
     await Future.delayed(const Duration(seconds: 1));
-    // Here it would send the updated ratings to Firebase
+   
     debugPrint('Submitted skills: ${assessedSkills.map((s) => '${s.name}: ${s.currentRating}')}');
   }
 }
@@ -107,6 +107,6 @@ class FakeSkillRepository implements SkillRepository {
 @riverpod
 SkillRepository skillRepository(Ref ref) {
 
-  // Return the fake implementation until Firebase is integrated
+ 
   return FakeSkillRepository();
 }
