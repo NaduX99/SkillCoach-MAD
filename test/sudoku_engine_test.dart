@@ -40,5 +40,23 @@ void main() {
       expect(emptyCount, greaterThan(0));
       expect(emptyCount, lessThanOrEqualTo(30));
     });
+
+    test('validateMove correctly identifies invalid moves', () {
+      final board = List.generate(9, (_) => List.filled(9, 0));
+      // Setup a basic state
+      board[0][0] = 5;
+      
+      // Test same row
+      expect(engine.validateMove(board, 0, 1, 5), isFalse);
+      
+      // Test same column
+      expect(engine.validateMove(board, 1, 0, 5), isFalse);
+      
+      // Test same 3x3 block
+      expect(engine.validateMove(board, 1, 1, 5), isFalse);
+      
+      // Test valid move
+      expect(engine.validateMove(board, 1, 1, 6), isTrue);
+    });
   });
 }
