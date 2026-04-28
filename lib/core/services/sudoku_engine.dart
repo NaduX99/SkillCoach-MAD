@@ -2,7 +2,7 @@ import 'dart:math';
 
 class SudokuEngine {
   final Random _random = Random();
-  
+
   /// Generates a valid 9x9 Sudoku board
   List<List<int>> generateBoard() {
     List<List<int>> board = List.generate(9, (_) => List.filled(9, 0));
@@ -29,7 +29,12 @@ class SudokuEngine {
     }
   }
 
-  bool _isSafeInBlock(List<List<int>> board, int rowStart, int colStart, int num) {
+  bool _isSafeInBlock(
+    List<List<int>> board,
+    int rowStart,
+    int colStart,
+    int num,
+  ) {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         if (board[rowStart + i][colStart + j] == num) {
@@ -86,10 +91,13 @@ class SudokuEngine {
   }
 
   /// Creates a puzzle by removing numbers from a full board
-  List<List<int>> createPuzzle(List<List<int>> fullBoard, {String difficulty = 'medium'}) {
+  List<List<int>> createPuzzle(
+    List<List<int>> fullBoard, {
+    String difficulty = 'medium',
+  }) {
     List<List<int>> puzzle = List.generate(9, (i) => List.from(fullBoard[i]));
     int cellsToRemove;
-    
+
     switch (difficulty.toLowerCase()) {
       case 'easy':
         cellsToRemove = 30;
@@ -109,30 +117,30 @@ class SudokuEngine {
     while (count < cellsToRemove) {
       int row = _random.nextInt(9);
       int col = _random.nextInt(9);
-      
+
       if (puzzle[row][col] != 0) {
         puzzle[row][col] = 0;
         count++;
       }
     }
-    
+
     return puzzle;
   }
 
   /// Validates if a move is correct according to Sudoku rules
   bool validateMove(List<List<int>> currentBoard, int row, int col, int num) {
     if (num < 1 || num > 9) return false;
-    
+
     // Check row
     for (int c = 0; c < 9; c++) {
       if (c != col && currentBoard[row][c] == num) return false;
     }
-    
+
     // Check column
     for (int r = 0; r < 9; r++) {
       if (r != row && currentBoard[r][col] == num) return false;
     }
-    
+
     // Check 3x3 block
     int startRow = row - row % 3;
     int startCol = col - col % 3;
@@ -144,7 +152,7 @@ class SudokuEngine {
         }
       }
     }
-    
+
     return true;
   }
 }

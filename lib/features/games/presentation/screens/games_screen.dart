@@ -24,11 +24,7 @@ class GamesScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.gamepad,
-              size: 64,
-              color: Color(0xFF0D9488),
-            ),
+            const Icon(Icons.gamepad, size: 64, color: Color(0xFF0D9488)),
             const SizedBox(height: 24),
             Text(
               'Sudoku Challenge',
@@ -44,7 +40,10 @@ class GamesScreen extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF3265D6),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 16,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
