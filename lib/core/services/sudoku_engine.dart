@@ -84,4 +84,67 @@ class SudokuEngine {
     }
     return true;
   }
+
+  /// Creates a puzzle by removing numbers from a full board
+  List<List<int>> createPuzzle(List<List<int>> fullBoard, {String difficulty = 'medium'}) {
+    List<List<int>> puzzle = List.generate(9, (i) => List.from(fullBoard[i]));
+    int cellsToRemove;
+    
+    switch (difficulty.toLowerCase()) {
+      case 'easy':
+        cellsToRemove = 30;
+        break;
+      case 'hard':
+        cellsToRemove = 50;
+        break;
+      case 'expert':
+        cellsToRemove = 60;
+        break;
+      case 'medium':
+      default:
+        cellsToRemove = 40;
+    }
+
+    int count = 0;
+    while (count < cellsToRemove) {
+      int row = _random.nextInt(9);
+      int col = _random.nextInt(9);
+      
+      if (puzzle[row][col] != 0) {
+        puzzle[row][col] = 0;
+        count++;
+      }
+    }
+    
+    return puzzle;
+  }
+
+  /// Validates if a move is correct according to Sudoku rules
+  bool validateMove(List<List<int>> currentBoard, int row, int col, int num) {
+    if (num < 1 || num > 9) return false;
+    
+    // Check row
+    for (int c = 0; c < 9; c++) {
+      if (c != col && currentBoard[row][c] == num) return false;
+    }
+    
+    // Check column
+    for (int r = 0; r < 9; r++) {
+      if (r != row && currentBoard[r][col] == num) return false;
+    }
+    
+    // Check 3x3 block
+    int startRow = row - row % 3;
+    int startCol = col - col % 3;
+    for (int r = 0; r < 3; r++) {
+      for (int c = 0; c < 3; c++) {
+        if ((startRow + r != row || startCol + c != col) &&
+            currentBoard[startRow + r][startCol + c] == num) {
+          return false;
+        }
+      }
+    }
+    
+    return true;
+  }
 }
