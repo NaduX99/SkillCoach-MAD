@@ -30,12 +30,17 @@ class SudokuBoardWidget extends ConsumerWidget {
             final value = sudokuState.currentBoard[row][col];
             final isInitial = sudokuState.puzzleBoard[row][col] != 0;
             final isSelected = sudokuState.selectedRow == row && sudokuState.selectedCol == col;
+            final isRelated = sudokuState.selectedRow == row || sudokuState.selectedCol == col;
 
             return GestureDetector(
               onTap: () => notifier.selectCell(row, col),
               child: Container(
                 decoration: BoxDecoration(
-                  color: isSelected ? Colors.blue.withOpacity(0.3) : Colors.white,
+                  color: isSelected
+                      ? Colors.blue.withOpacity(0.3)
+                      : isRelated
+                          ? Colors.blue.withOpacity(0.05)
+                          : Colors.white,
                   border: Border(
                     bottom: BorderSide(
                       color: Colors.black,
