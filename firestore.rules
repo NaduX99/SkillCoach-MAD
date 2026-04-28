@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(uid) {
+      return request.auth.uid == uid;
+    }
+
+    // ── USERS COLLECTION ──────────────────
+    match /users/{uid} {
+      // Own data only read/write
+      allow read, write: if isLoggedIn() && isOwner(uid);
+      
+      // Sub-collections
+      match /{subcollection}/{docId} {
+        allow read, write: if isLoggedIn() && isOwner(uid);
+      }
+    }
+
+    // ── INDUSTRY ROLES ────────────────────
+    match /industryRoles/{roleId} {
+      // All logged in users read
+      allow read: if isLoggedIn();
+      // Nobody write (admin console only)
+      allow write: if false;
+    }
+  }
+}
