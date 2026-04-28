@@ -29,8 +29,10 @@ class ProfileSetupNotifier extends StateNotifier<ProfileSetupState> {
     state = state.copyWith(experience: experience);
   }
 
-  void setGoals(String goals) {
-    state = state.copyWith(goals: goals);
+  void setCareerGoal(String? goals) {
+    if (goals != null) {
+      state = state.copyWith(goals: goals);
+    }
   }
 
   void setInterests(String interests) {
