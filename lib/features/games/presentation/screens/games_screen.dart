@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'sudoku_gameplay_screen.dart';
 
 class GamesScreen extends StatelessWidget {
   const GamesScreen({Key? key}) : super(key: key);
@@ -36,7 +37,9 @@ class GamesScreen extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // Navigate to the actual Sudoku Game Board Screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const SudokuGameplayScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF3265D6),
