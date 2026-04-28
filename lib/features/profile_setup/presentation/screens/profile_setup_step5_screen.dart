@@ -50,7 +50,7 @@ class ProfileSetupStep5Screen extends StatelessWidget {
                 height: 54,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigate to main app
+                    context.go('/');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF3265D6),
