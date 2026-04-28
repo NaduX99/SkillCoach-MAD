@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProfileScreen extends StatelessWidget {
+import '../providers/profile_provider.dart';
+import '../widgets/profile_header_widget.dart';
+import '../widgets/profile_stats_widget.dart';
+
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profileState = ref.watch(profileProvider);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -35,10 +42,17 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Header will go here
+                ProfileHeaderWidget(
+                  name: profileState.name,
+                  email: profileState.email,
+                  avatarUrl: profileState.avatarUrl,
+                ),
                 const SizedBox(height: 32),
                 
-                // Stats will go here
+                ProfileStatsWidget(
+                  hoursLearned: profileState.hoursLearned,
+                  coursesCompleted: profileState.coursesCompleted,
+                ),
                 const SizedBox(height: 32),
                 
                 // Settings Options
