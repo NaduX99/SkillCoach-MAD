@@ -21,13 +21,19 @@ class NewsInsightsScreen extends ConsumerWidget {
           children: [
             _buildHeader(context),
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
-                physics: const BouncingScrollPhysics(),
-                itemCount: newsList.length,
-                itemBuilder: (context, index) {
-                  return NewsCardWidget(article: newsList[index]);
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  // Simulate API Refresh
+                  await Future.delayed(const Duration(seconds: 1));
                 },
+                child: ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: newsList.length,
+                  itemBuilder: (context, index) {
+                    return NewsCardWidget(article: newsList[index]);
+                  },
+                ),
               ),
             ),
           ],
