@@ -19,9 +19,9 @@ class SudokuBoardWidget extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 15,
-              offset: const Offset(0, 5),
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
             ),
           ],
         ),
@@ -44,14 +44,14 @@ class SudokuBoardWidget extends ConsumerWidget {
               return GestureDetector(
                 onTap: () => notifier.selectCell(row, col),
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeOutCubic,
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? const Color(0xFFDBEAFE)
+                        ? const Color(0xFFDBEAFE).withOpacity(0.8)
                         : isRelated
-                            ? const Color(0xFFF1F5F9)
-                            : Colors.white,
+                            ? const Color(0xFFF1F5F9).withOpacity(0.5)
+                            : Colors.white.withOpacity(0.4),
                     border: Border(
                       bottom: BorderSide(
                         color: const Color(0xFFCBD5E1),
@@ -65,13 +65,14 @@ class SudokuBoardWidget extends ConsumerWidget {
                   ),
                   child: Center(
                     child: AnimatedScale(
-                      scale: value == 0 ? 0 : 1,
-                      duration: const Duration(milliseconds: 150),
+                      scale: value == 0 ? 0.5 : 1.0,
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.elasticOut,
                       child: Text(
                         value == 0 ? '' : value.toString(),
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.orbitron(
                           fontSize: 20,
-                          fontWeight: isInitial ? FontWeight.bold : FontWeight.w500,
+                          fontWeight: isInitial ? FontWeight.bold : FontWeight.w600,
                           color: isInitial ? const Color(0xFF0F172A) : const Color(0xFF2563EB),
                         ),
                       ),
