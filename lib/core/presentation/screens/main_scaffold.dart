@@ -8,6 +8,8 @@ class MainScaffold extends StatelessWidget {
     required this.navigationShell,
     super.key,
   });
+  /// Main layout widget that displays the current navigation shell
+  /// and provides a custom bottom navigation bar for app-wide navigation.
 
   final StatefulNavigationShell navigationShell;
 
@@ -24,6 +26,7 @@ class MainScaffold extends StatelessWidget {
               blurRadius: 10,
               offset: const Offset(0, -5),
             ),
+          
           ],
         ),
         child: SafeArea(
