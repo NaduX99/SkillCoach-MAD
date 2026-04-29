@@ -9,7 +9,7 @@ import '../models/chat_message.dart';
 class AIService {
   static const _apiKey = String.fromEnvironment(
     'GROQ_API_KEY',
-    defaultValue: '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',
+    defaultValue: '',
   );
   static const List<String> _models = [
     'llama-3.1-8b-instant',
