@@ -8,6 +8,12 @@ import '../widgets/sudoku_board_widget.dart';
 class SudokuGameplayScreen extends ConsumerWidget {
   const SudokuGameplayScreen({Key? key}) : super(key: key);
 
+  String _formatTime(int seconds) {
+    final mins = seconds ~/ 60;
+    final secs = seconds % 60;
+    return '${mins.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}';
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(sudokuProvider);
@@ -26,18 +32,47 @@ class SudokuGameplayScreen extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.of(context).pop(),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(PhosphorIcons.gear(), color: Colors.black87),
+            onPressed: () => _showDifficultyMenu(context, notifier),
+          ),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildStatItem(
+                    icon: PhosphorIcons.clock(),
+                    value: _formatTime(state.timerSeconds),
+                    label: 'Time',
+                  ),
+                  _buildStatItem(
+                    icon: PhosphorIcons.lightbulb(),
+                    value: state.hintsUsed.toString(),
+                    label: 'Hints',
+                  ),
+                  _buildStatItem(
+                    icon: PhosphorIcons.chartBar(),
+                    value: state.difficulty.toUpperCase(),
+                    label: 'Level',
+                  ),
+                ],
+              ),
+            ),
             const SudokuBoardWidget(),
             const Spacer(),
             if (state.isGameOver)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  'CONGRATULATIONS! YOU WON!',
+                  'GAME COMPLETED!',
                   style: GoogleFonts.orbitron(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -56,11 +91,14 @@ class SudokuGameplayScreen extends ConsumerWidget {
                   onTap: () => notifier.clearCell(),
                 ),
                 _buildActionButton(
+                  icon: PhosphorIcons.lightbulb(PhosphorIconsStyle.fill),
+                  label: 'Hint',
+                  onTap: () => notifier.useHint(),
+                ),
+                _buildActionButton(
                   icon: PhosphorIcons.arrowsCounterClockwise(),
-                  label: 'Restart',
-                  onTap: () {
-                    // Logic to restart could be added to provider
-                  },
+                  label: 'New Game',
+                  onTap: () => _showDifficultyMenu(context, notifier),
                 ),
               ],
             ),
@@ -68,6 +106,77 @@ class SudokuGameplayScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showDifficultyMenu(BuildContext context, SudokuNotifier notifier) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Select Difficulty',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 24),
+              _difficultyOption(context, notifier, 'Easy', const Color(0xFF10B981)),
+              _difficultyOption(context, notifier, 'Medium', const Color(0xFFF59E0B)),
+              _difficultyOption(context, notifier, 'Hard', const Color(0xFFEF4444)),
+              const SizedBox(height: 12),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _difficultyOption(BuildContext context, SudokuNotifier notifier, String label, Color color) {
+    return ListTile(
+      onTap: () {
+        notifier.resetGame(label.toLowerCase());
+        Navigator.pop(context);
+      },
+      leading: Icon(PhosphorIcons.circle(PhosphorIconsStyle.fill), color: color),
+      title: Text(
+        label,
+        style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+      ),
+      trailing: const Icon(Icons.chevron_right),
+    );
+  }
+
+  Widget _buildStatItem({required IconData icon, required String value, required String label}) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Icon(icon, size: 16, color: const Color(0xFF64748B)),
+            const SizedBox(width: 4),
+            Text(
+              value,
+              style: GoogleFonts.orbitron(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF1E293B),
+              ),
+            ),
+          ],
+        ),
+        Text(
+          label,
+          style: GoogleFonts.poppins(fontSize: 10, color: const Color(0xFF94A3B8)),
+        ),
+      ],
     );
   }
 

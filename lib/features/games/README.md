@@ -13,5 +13,8 @@ This directory handles the interactive Sudoku game challenge.
 
 - **Puzzle Generation**: Generates valid 9x9 Sudoku grids with different difficulty levels.
 - **Interactive Gameplay**: Tap to select cells and input numbers via the numeric keypad.
-- **Validation**: Real-time validation of moves against Sudoku rules.
+- **Hint System**: Real-time logic to reveal correct numbers when stuck, tracking hint usage in the session stats.
+- **Gameplay Timer**: Integrated timer to track session duration, displayed prominently in the UI.
+- **Difficulty Settings**: Choose between Easy, Medium, and Hard modes, with the Sudoku Engine adjusting puzzle complexity accordingly.
+- **Visual Feedback**: Smooth cell animations and row/column highlighting for an enhanced interactive experience.
 - **Win Condition**: Automatic detection when the puzzle is correctly completed.
