@@ -8,7 +8,7 @@ class AestheticBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // 1. Premium Gradient Background (Static, const for zero rebuilds)
+        
         const Positioned.fill(
           child: DecoratedBox(
             decoration: BoxDecoration(
