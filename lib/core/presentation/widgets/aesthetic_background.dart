@@ -45,6 +45,9 @@ class AestheticBackground extends StatelessWidget {
             ),
           ),
         ),
+        /// A reusable background widget that applies a soft gradient
+        /// with subtle decorative circles behind the provided child widget
+        /// to create a modern and visually appealing screen layout.
         Positioned(
           bottom: 200,
           left: -100,
