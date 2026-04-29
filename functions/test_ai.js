@@ -7,9 +7,9 @@ const groq = new OpenAI({
 });
 
 async function testGroq() {
-    console.log("🚀 Testing Groq API locally...");
+    console.log("Testing Groq API locally...");
     
-    // Simulate what the Flutter app sends to the backend
+    
     const prompt = `
         You are an expert career advisor AI. Your responses must be entirely valid JSON without any markdown blocks.
         
@@ -49,7 +49,7 @@ async function testGroq() {
             response_format: { type: "json_object" }
         });
 
-        console.log("✅ Success! Groq responded with:\n");
+        console.log("Success! Groq responded with:\n");
         console.log(response.choices[0].message.content);
         
     } catch (e) {
